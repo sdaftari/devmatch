@@ -3,11 +3,12 @@
 <head>
   <title>Dev Match</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag "https://js.stripe.com/v2/", type: 'text/javascript' %>
   <%= javascript_include_tag 'application' %>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
   <div class='container'>
     <div class="navbar-header">
@@ -29,7 +30,7 @@
         <% else %>
           <%= link_to "Log In", new_user_session_path, class: 'btn btn-primary navbar-btn', method: :get %>
         <% end %>
-      </div?
+      </div>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "About", about_path %></li>
         <li><%= link_to "Contact Us", new_contact_path %></li>
@@ -37,14 +38,11 @@
     </div><!-- /.navbar-collapse -->
   </div>
 </nav>
-
 <div class="container">
-  <% flash.each do |key, val| %>
-    <%= content_tag :div, val, class: "alert alert-#{key}" %>
+  <% flash.each do |key, value| %>
+    <%= content_tag :div, value, class: "alert alert-#{key}" %>
   <% end %>
-  
   <%= yield %>
 </div>
-
 </body>
 </html>
